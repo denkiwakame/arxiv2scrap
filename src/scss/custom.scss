@@ -1,0 +1,61 @@
+/***
+50 #ECEFF1 100 #CFD8DC 200 #B0BEC5 300 #90A4AE 400 #78909C 500 #607D8B 600 #546E7A 700 #455A64 800 #37474F 900 #263238
+***/
+$mdc-theme-primary: #37474F;
+$mdc-theme-on-primary: #ECEFF1;
+$mdc-theme-secondary: #37474F;
+// $mdc-theme-background: #ECEFF1;
+// $mdc-theme-on-background: #37474F;
+// $mdc-theme-surface: #37474F;
+// $mdc-theme-on-surface: #37474F;
+// $mdc-theme-on-secondary: #ECEFF1;
+
+$font-base: 12px;
+
+@import '@material/theme/mdc-theme';
+@import '@material/icon-button/mdc-icon-button';
+@import "@material/textfield/mdc-text-field";
+@import '@material/select/mdc-select';
+@import "@material/chips/mdc-chips";
+@import "@material/snackbar/mdc-snackbar";
+
+body {
+    width: 350px;
+    background-color: $mdc-theme-background;
+}
+
+.container {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mdc-text-field__input {
+    font-size: 12px;
+}
+.mdc-floating-label {
+    font-size: 12px;
+}
+.mdc-chip__text {
+    font-size: 12px;
+}
+.mdc-button {
+    font-size: 12px;
+}
+
+.mdc-snackbar {
+    background-color: $mdc-theme-secondary;
+}
+.mdc-snackbar__text {
+    font-size: $font-base;
+}
+.mdc-snackbar__action-button {
+    color: #90A4AE;
+    font-weight: bold;
+    font-size: $font-base;
+}
+
+.mdc-select__native-control {
+    width: 250px;
+}
