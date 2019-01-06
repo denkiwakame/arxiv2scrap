@@ -11,9 +11,11 @@ easy-to-use arXiv clipper for scrapbox.io
 ## Installation
 
 ### For users
-- Download extension package (`*.crx`) from https://github.com/denkiwakame/arxiv2scrap/releases
+- Download extension package from https://github.com/denkiwakame/arxiv2scrap/releases
 - In Chrome, navigate to `chrome://extension`
-- Drag and drop the extension from your file manager anywhere onto the extensions page in Chrome
+- Install extension
+  - `zip` Unzip extension and `Load unpacked` in Developer Mode
+  - `crx` Drag and drop the extension from your file manager anywhere onto the extensions page in Chrome
 
 ### For developers
 - `$ git clone https://github.com/denkiwakame/arxiv2scrap.git`
