@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- node
+cache: npm
+before_script:
+- npm i -g npm@6
+script:
+- npm run build
+- npm run pack
+deploy:
+  provider: releases
+  api_key:
+    secure: rcVpeo5IalTf96PBe2rOQprLmifgWwWerQ9OXSeTTxj5zLYbMuBOiAZzmAX52oagF5tLiPrjBc7NPwl/pQUppZrZUSS5spV9TaYPnP/9FAAy2J4HAGSCSLy5msGjpwX5Do4px3lS5aTDVmmuaWsajA12xmiMM1I+LUcjV3/e2fpqSsw/TOkZ0nmhmaHOLKdJXyZQ7lgyVi2FH34dDonBZC48f27RQJ8dPkUO1nV2QXGwbn3JErlvKaVW0jHa0HUlGXdGBdOpxE2Z7pSauyYEL9SQ8UtVF+jCj6AW2UvsO/Id5yhjEzvzGwfhGBH1kzhV2GtGMWU3F427j/u/6+mb5yWlDi2M7zOLPV2bKu4Bl+WMi9W8jVlCZEEFBuGLI+CZSjrgSyYLXN7z2cH547KWFIsKBALIcUdIdcjQqyMqXY+AOwb4kuHl/nxSRf5SR9apUQnaHlI6HD6/pUAOD4bc+Z0in+VjpuvWBGeM+Ue74omBAOU3q+vr9gEK/N9QzNrHp4229c0wtUNejjmHwVBuYgTPCyJJJqY3QOgKhgqH4Ghf0sD7kSXGnx8fedzTzTparGeDJmt/K/yvFSqgCMyMXQyPQYTBPWrFTGOQSb6InNlNxIGD/cwa3mH/mpmwmbouJ4EoZTVSPReY9Bkh8to9a/3mEibk/Ya08hkz9CMHsA4=
+  file_glob: true
+  file: packages/*
+  on:
+    tags: true
