@@ -1,4 +1,5 @@
 # arxiv2scrap
+[![Build Status](https://travis-ci.org/denkiwakame/arxiv2scrap.svg?branch=master)](https://travis-ci.org/denkiwakame/arxiv2scrap)
 easy-to-use arXiv clipper for scrapbox.io
 
 ![DEMO](doc/demo.gif)
