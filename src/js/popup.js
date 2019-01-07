@@ -56,7 +56,6 @@ UI = {
 
         var toggleButton = new MDCIconButtonToggle(document.getElementById('a2s-save'));
         $("#a2s-save").on("click", ()=> {
-//             const projectUrl = 'https://scrapbox.io/epic';
             const title = $("#a2s-paper-title")[0].value;
             const abst  = $("#a2s-paper-abstract")[0].value;
             const tags  = _.map(self.chipSet.chips, (chip) => {
@@ -143,7 +142,7 @@ App = {
             statusCode: {
                 200: (data)=> {
                     const $entry= $(data).find("entry");
-                    const paperTitle = $entry.find("title")[0].textContent;
+                    const paperTitle = $entry.find("title")[0].textContent.replace(/\n/g,' ');
                     const abst = $entry.find("summary")[0].textContent.trim().replace(/\n/g,' ');
                     const authors = _.map($entry.find("author"), (a) => { return a.textContent.trim(); });
                     UI.setFormContents({
