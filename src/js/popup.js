@@ -1,6 +1,7 @@
 const $ = require('jquery');
 const _ = require('lodash');
 const thenChrome = require('then-chrome');
+const pdfjsLib = require('pdfjs-dist');
 
 UI = {
     init: function() {
@@ -116,6 +117,9 @@ App = {
     isArxivUrl: function (url) {
         return url && url.indexOf('https://arxiv.org') === 0;
     },
+    isPDF: function(url) {
+        return url && url.split(".").pop() === "pdf";
+    },
     parseArXivId: function(str) {
         const paperId = str.match(/\d+.\d+/);
         return paperId;
@@ -124,14 +128,19 @@ App = {
         const self = this;
         chrome.tabs.query({ active:true, currentWindow:true }, (tabs) => {
             const url = tabs[0].url;
-            if (!self.isArxivUrl(url)) return;
             self.getPaperInfo(url);
         });
     },
     getPaperInfo: function(url) {
         const self = this;
+//         const url_ = "http://openaccess.thecvf.com/content_ECCV_2018/papers/Martin_Sundermeyer_Implicit_3D_Orientation_ECCV_2018_paper.pdf";
+//         self.getPDFInfo(url_);
+        if (self.isArxivUrl(url)) return self.getArXivInfo(url);
+        if (self.isPDF(url)) return self.getPDFInfo(url); 
+    },
+    getArXivInfo: function(url) {
+        const self = this;
         const paperId = self.parseArXivId(url);
-//         const paperId = "1806.04807"; DEBUG
         $.ajax({
             url     : self.api,
             type    : 'get',
@@ -142,11 +151,11 @@ App = {
             statusCode: {
                 200: (data)=> {
                     const $entry= $(data).find("entry");
-                    const paperTitle = $entry.find("title")[0].textContent.replace(/\n/g,' ');
-                    const abst = $entry.find("summary")[0].textContent.trim().replace(/\n/g,' ');
+                    const paperTitle = $entry.find("title")[0].textContent.replace(/\n/g,' ');    // FIXME
+                    const abst = $entry.find("summary")[0].textContent.trim().replace(/\n/g,' '); // FIXME
                     const authors = _.map($entry.find("author"), (a) => { return a.textContent.trim(); });
                     UI.setFormContents({
-                        url         : "https://arxiv.org/abs/" + paperId,
+                        url         : url,
                         paperTitle  : paperTitle,
                         abstract    : abst,
                         authors     : authors
@@ -155,6 +164,28 @@ App = {
             }
         }).fail(()=> {
             alert("arXiv API request failed");
+        });
+    },
+    getPDFInfo: function(url) {
+        const self = this; 
+        // Setting worker path to worker bundle.
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdfjsWorker.bundle.js';
+        const pdfLoading = pdfjsLib.getDocument(url);
+        pdfLoading.promise.then((pdf)=>{
+            pdf.getMetadata().then((d)=>{
+                const authors = d.info.Author.trim().replace("/ /_/g").split(",");
+                const paperTitle = d.info.Title.replace(/\n/g,' ');
+                UI.setFormContents({
+                    url         : url,
+                    paperTitle  : paperTitle,
+                    abstract    : '', // TODO
+                    authors     : authors
+                });
+            }).catch((reason) => {
+                console.log(reason);
+            });
+        }).catch((reason) => {
+            alert('PDF load failed');
         });
     }
 };

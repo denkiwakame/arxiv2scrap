@@ -4,10 +4,13 @@ easy-to-use arXiv clipper for scrapbox.io
 
 ![DEMO](doc/demo.gif)
 
-## How to use
-- Log in to scrapbox.io https://scraopbox.io
-- Set your scrapbox project-name in arxiv2scrap option (right-click the extension icon)
-- Click the extension icon at `https://arxiv.org/abs/[paper-id]` or `https://arxivorg/pdf/[paper-id]`
+## Usage
+- `MUST` Log in to scrapbox.io https://scraopbox.io
+- `MUST` Right-click on the extension icon >> **Options** >> set your scrapbox project-name
+- Click on the extension icon at:
+  - `https://arxiv.org/abs/[paper-id]`
+  - `https://arxiv.org/pdf/[paper-id]`
+  - `*.pdf`
 
 ## Installation
 
