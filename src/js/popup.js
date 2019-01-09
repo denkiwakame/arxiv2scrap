@@ -10,6 +10,7 @@ UI = {
         self.setupMDCChipSet();
         self.setupMDCButtons();
         self.setupMDCSnackBar();
+        self.setupProgressBar();
     },
     invokeLoginAlert: function() {
         const self = this;
@@ -45,6 +46,18 @@ UI = {
             });
             $("#a2s-save").disabled = true;
         });
+    },
+    setupProgressBar: function() {
+        const self = this;
+        const MDCLinearProgress = require('@material/linear-progress').MDCLinearProgress;
+        self.progressbar = new MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
+        self.hideProgressBar();
+    },
+    hideProgressBar: function() {
+        $("#js-progressbar").hide();
+    },
+    showProgressBar: function() {
+        $("#js-progressbar").show();
     },
     setupMDCSnackBar: function() {
         const self = this;
@@ -139,6 +152,7 @@ App = {
         if (self.isPDF(url)) return self.getPDFInfo(url); 
     },
     getArXivInfo: function(url) {
+        UI.showProgressBar();
         const self = this;
         const paperId = self.parseArXivId(url);
         $.ajax({
@@ -160,6 +174,7 @@ App = {
                         abstract    : abst,
                         authors     : authors
                     });
+                    UI.hideProgressBar();
                 }
             }
         }).fail(()=> {
@@ -167,6 +182,8 @@ App = {
         });
     },
     getPDFInfo: function(url) {
+        UI.showProgressBar();
+
         const self = this; 
         // Setting worker path to worker bundle.
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdfjsWorker.bundle.js';
@@ -181,6 +198,7 @@ App = {
                     abstract    : '', // TODO
                     authors     : authors
                 });
+                UI.hideProgressBar();
             }).catch((reason) => {
                 console.log(reason);
             });
