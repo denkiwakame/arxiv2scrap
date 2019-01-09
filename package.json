@@ -1,6 +1,6 @@
 {
   "name": "arXiv2scrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "arXiv clipper for scrapbox",
   "scripts": {
     "dev": "webpack --mode development",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@material/chips": "^0.42.0",
     "@material/icon-button": "^0.42.0",
+    "@material/linear-progress": "^0.43.0",
     "@material/select": "^0.42.1",
     "@material/snackbar": "^0.42.0",
     "@material/textfield": "^0.42.1",
