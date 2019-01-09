@@ -1,6 +1,6 @@
 {
   "name": "arXiv2scrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "arXiv clipper for scrapbox",
   "scripts": {
     "dev": "webpack --mode development",
