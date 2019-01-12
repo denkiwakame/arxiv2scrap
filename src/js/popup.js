@@ -118,7 +118,7 @@ UI = {
         for (author of data.authors) {
             const templateStr = require('../html/_chip.html');
             const compiled = _.template(templateStr);
-            const chipEl = self._str2elem( compiled({ tag: author.replace(/\ /g, '_') }) );
+            const chipEl = self._str2elem( compiled({ tag: author.trim().replace(/\ +/g, '_') }) );
             $(".mdc-chip-set").append(chipEl);
             self.chipSet.addChip(chipEl);
         }
@@ -151,6 +151,9 @@ App = {
         if (self.isArxivUrl(url)) return self.getArXivInfo(url);
         if (self.isPDF(url)) return self.getPDFInfo(url); 
     },
+    formatString: function(str) {
+        return str.trim().replace(/\n/g,' ').replace(/\ +/g, ' ');
+    },
     getArXivInfo: function(url) {
         UI.showProgressBar();
         const self = this;
@@ -165,8 +168,8 @@ App = {
             statusCode: {
                 200: (data)=> {
                     const $entry= $(data).find("entry");
-                    const paperTitle = $entry.find("title")[0].textContent.replace(/\n/g,' ');    // FIXME
-                    const abst = $entry.find("summary")[0].textContent.trim().replace(/\n/g,' '); // FIXME
+                    const paperTitle = self.formatString($entry.find("title")[0].textContent);
+                    const abst = self.formatString($entry.find("summary")[0].textContent);
                     const authors = _.map($entry.find("author"), (a) => { return a.textContent.trim(); });
                     UI.setFormContents({
                         url         : url,
@@ -190,8 +193,8 @@ App = {
         const pdfLoading = pdfjsLib.getDocument(url);
         pdfLoading.promise.then((pdf)=>{
             pdf.getMetadata().then((d)=>{
-                const authors = d.info.Author.trim().replace("/ /_/g").split(",");
-                const paperTitle = d.info.Title.replace(/\n/g,' ');
+                const authors = d.info.Author.trim().split(",");
+                const paperTitle = self.formatString(d.info.Title);
                 UI.setFormContents({
                     url         : url,
                     paperTitle  : paperTitle,
