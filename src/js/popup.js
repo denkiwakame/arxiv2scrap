@@ -146,8 +146,6 @@ App = {
     },
     getPaperInfo: function(url) {
         const self = this;
-//         const url_ = "http://openaccess.thecvf.com/content_ECCV_2018/papers/Martin_Sundermeyer_Implicit_3D_Orientation_ECCV_2018_paper.pdf";
-//         self.getPDFInfo(url_);
         if (self.isArxivUrl(url)) return self.getArXivInfo(url);
         if (self.isPDF(url)) return self.getPDFInfo(url); 
     },
